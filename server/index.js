@@ -25,6 +25,43 @@ app.get('/cartapi/:id', (req, res) => {
   });
 });
 
+/* ----------------- create ----------------- */
+
+app.get('/games/create/:id', (req, res) => {
+  const data = req.body;
+  db.Game.insertOne(data, (err) => {
+    if (err) {
+      res.send(500);
+    }
+    res.send(200);
+  });
+});
+
+/* ----------------- delete ----------------- */
+
+app.get('/games/delete/:id', (req, res) => {
+  const { id } = req.body.id;
+  db.Game.deleteOne(id, (err) => {
+    if (err) {
+      res.send(500);
+    }
+    res.send(200);
+  });
+});
+
+/* ----------------- update ----------------- */
+
+app.get('/games/update/:id', (req, res) => {
+  const { id } = req.body;
+  const { update } = req.body;
+  db.Game.findOneAndUpdate(id, update, (err) => {
+    if (err) {
+      res.send(500);
+    } else {
+      res.send(200);
+    }
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
