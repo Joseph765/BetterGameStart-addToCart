@@ -1,16 +1,23 @@
-// CREATE KEYSPACE hotel WITH replication = {‘class’: ‘SimpleStrategy’, ‘replication_factor’ : 3};
+DROP KEYSPACE IF EXISTS cartgames;
 
-// CREATE TYPE hotel.address (
-//   id number,
-//   gameId: number,
-//   title: String,
-//   publisher: String,
-//   reviewScore: Number,
-//   reviewCount: Number,
-//   ageRating: String,
-//   newPrice: Number,
-//   usedPrice: Number,
-//   digitalPrice: Number,
-//   storeLocation: String,
-//   inStock: Boolean,
-// );
+CREATE keyspace cartgames WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 1};
+
+USE cartgames;
+
+CREATE TABLE games (
+  id int PRIMARY KEY,
+  ageRating int,
+  digitalPrice int,
+  gameId int,
+  inStock text,
+  newPrice int,
+  publisher text,
+  reviewCount int,
+  reviewScore int,
+  storeLocation text,
+  title text,
+  usedPrice int
+);
+
+-- COPY games FROM '../data.csv' WITH DELIMITER = ',' AND HEADER = TRUE;
+
