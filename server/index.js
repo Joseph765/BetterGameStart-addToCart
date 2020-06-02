@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -11,11 +12,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/games/:id', express.static(__dirname + '/../client/dist'));
 
-//TO-DO: api get router
+//TO-DO: api GET router
 app.get('/cartapi/:id', (req, res) => {
   const id = Number(path.basename(req.url));
   db.getGame(id, (err, result) => {
-    if(err) {
+    if (err) {
       res.sendStatus(500).send(err);
       res.end();
     } else {
@@ -25,43 +26,48 @@ app.get('/cartapi/:id', (req, res) => {
   });
 });
 
+//TO-DO: api POST router
+app.post('/addGame/:id', (req, res) => {
+  res.send(200);
+});
+
 /* ----------------- create ----------------- */
 
-app.get('/games/create/:id', (req, res) => {
-  const data = req.body;
-  db.Game.insertOne(data, (err) => {
-    if (err) {
-      res.send(500);
-    }
-    res.send(200);
-  });
-});
+// app.get('/games/create/:id', (req, res) => {
+//   const data = req.body;
+//   db.Game.insertOne(data, (err) => {
+//     if (err) {
+//       res.send(500);
+//     }
+//     res.send(200);
+//   });
+// });
 
-/* ----------------- delete ----------------- */
+// /* ----------------- delete ----------------- */
 
-app.get('/games/delete/:id', (req, res) => {
-  const { id } = req.body.id;
-  db.Game.deleteOne(id, (err) => {
-    if (err) {
-      res.send(500);
-    }
-    res.send(200);
-  });
-});
+// app.get('/games/delete/:id', (req, res) => {
+//   const { id } = req.body.id;
+//   db.Game.deleteOne(id, (err) => {
+//     if (err) {
+//       res.send(500);
+//     }
+//     res.send(200);
+//   });
+// });
 
-/* ----------------- update ----------------- */
+// /* ----------------- update ----------------- */
 
-app.get('/games/update/:id', (req, res) => {
-  const { id } = req.body;
-  const { update } = req.body;
-  db.Game.findOneAndUpdate(id, update, (err) => {
-    if (err) {
-      res.send(500);
-    } else {
-      res.send(200);
-    }
-  });
-});
+// app.get('/games/update/:id', (req, res) => {
+//   const { id } = req.body;
+//   const { update } = req.body;
+//   db.Game.findOneAndUpdate(id, update, (err) => {
+//     if (err) {
+//       res.send(500);
+//     } else {
+//       res.send(200);
+//     }
+//   });
+// });
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);

@@ -30,3 +30,4 @@ client/dist/bundle.js
 
 /data2.csv
 /data1.csv
+/.env
